@@ -23,4 +23,42 @@ public class Contato {
 
     public String getMensagem() { return mensagem; }
     public void setMensagem(String mensagem) { this.mensagem = mensagem; }
+package com.agro.forte.controller;
+
+import com.agro.forte.model.Contato;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/contato") // Define a URL que o HTML vai chamar
+public class ContatoController {
+
+    @PostMapping
+    public String receberContato(@RequestBody Contato contato) {
+        // Aqui o Java processa os dados (pode salvar no banco, mandar e-mail, etc.)
+        System.out.println("Novo contato recebido do produtor: " + contato.getNome());
+        
+        // Retorna uma mensagem de sucesso para o site
+        return "Obrigado, " + contato.getNome() + "! Sua mensagem sobre Agro Sustentável foi recebida.";
+    async function enviarFormulario() {
+    const dados = {
+        nome: document.getElementById('nome').value,
+        email: document.getElementById('email').value,
+        mensagem: document.getElementById('mensagem').value
+    };
+
+    // O fetch envia os dados para o servidor Java rodando na sua máquina
+    const resposta = await fetch('http://localhost:8080/api/contato', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    });
+
+    const texto = await resposta.text();
+    alert(texto); // Mostra a resposta que o Java enviou
 }
+
