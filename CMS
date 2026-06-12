@@ -1,1 +1,14 @@
+@RestController
+@RequestMapping("/agro-noticias")
+public class NoticiasController {
 
+    @GetMapping
+    public String buscarNoticiasDoCMS() {
+        RestTemplate restTemplate = new RestTemplate();
+        String urlDoCms = "https://api.seu-cms.com/v1/noticias";
+        
+        // O Java vai até o CMS, pega os dados da agropecuária e entrega pro site
+        String resultado = restTemplate.getForObject(urlDoCms, String.class);
+        return resultado;
+    }
+}
